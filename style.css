@@ -6,7 +6,7 @@ body {
 }
 
 header {
-  background-color: #005b96;
+  background-color: #005c99;
   padding: 20px;
   text-align: center;
   color: white;
@@ -30,7 +30,7 @@ header input {
 
 .product {
   background-color: #fff;
-  border: 2px solid #7eb6ff;
+  border: 2px solid #99ccee;
   border-radius: 10px;
   padding: 15px;
   text-align: center;
@@ -46,7 +46,7 @@ header input {
 button {
   margin-top: 10px;
   padding: 10px;
-  background-color: #2980b9;
+  background-color: #0077cc;
   color: white;
   border: none;
   border-radius: 5px;
@@ -54,17 +54,17 @@ button {
 }
 
 button:hover {
-  background-color: #1c5980;
+  background-color: #005c99;
 }
 
 #cart {
   background-color: #f0f8ff;
-  border-top: 2px solid #7eb6ff;
+  border-top: 2px solid #99ccee;
   padding: 20px;
 }
 
 #cart h2 {
-  color: #003f66;
+  color: #005c99;
 }
 
 #cart-items {
@@ -77,13 +77,13 @@ button:hover {
   margin-top: 10px;
 }
 
-/* Tela de Login */
+/* LOGIN */
 #login-section {
-  max-width: 300px;
+  max-width: 400px;
   margin: 100px auto;
   text-align: center;
-  background: #fff;
-  padding: 20px;
+  background: white;
+  padding: 30px;
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 91, 150, 0.3);
 }
@@ -94,11 +94,11 @@ button:hover {
   margin: 10px auto;
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid #005b96;
+  border: 1px solid #99ccee;
 }
 
 #login-section button {
-  background-color: #005b96;
+  background-color: #0077cc;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -107,7 +107,12 @@ button:hover {
 }
 
 #login-section button:hover {
-  background-color: #003f66;
+  background-color: #005c99;
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
 }
 
 #cart-items button {
