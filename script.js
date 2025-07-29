@@ -1,84 +1,97 @@
-const produtos = [
- {
-   nome: "camisa polo",
-   preco: 79.90,
-   imagem: "https://media.istockphoto.com/id/696845268/pt/foto/white-polo-shirt-mock-up.jpg?s=2048x2048&w=is&k=20&c=F4jP00ONTvZVvNSXWDmJt4nUBS_nk3vhwDU7KS1k8kc="
- },
- {
-   nome: "camisa social",
-   preco: 99.90,
-   imagem: "https://media.istockphoto.com/id/1208088017/pt/foto/business-or-white-blue-shirt-front-and-back-view-mock-up-isolated-on-white-background-with.jpg?s=2048x2048&w=is&k=20&c=qQxS5DzYhf_gHzqHq27d25FxvWYiSMMapPFOvYcJ8R8="
- },
- {
-   nome: "calça alfaiataria",
-   preco: 129.90,
-   imagem: "https://media.istockphoto.com/id/1198732352/pt/foto/mens-blank-skinny-gray-jeans-template-from-two-sides-natural-shape-on-invisible-mannequin-for.jpg?s=2048x2048&w=is&k=20&c=DNgy7for9M-UN9P5TJy200HlEIKbMwV2MzQpNPXsjS0="
- },
- {
-   nome: "conjunto calça e camisa",
-   preco: 149.90,
-   imagem: "https://media.istockphoto.com/id/641443784/pt/foto/confiante-e-bonita.jpg?s=2048x2048&w=is&k=20&c=2RKI2N9pgR62QGJ9GY4axjGlxfvVlV-r0zkIqYzllHY="
- }
+document.getElementById('login-button').addEventListener('click', function () {
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value.trim();
+  const errorMessage = document.getElementById('login-error');
+
+  const validUser = 'admin';
+  const validPass = '1234';
+
+  if (username === validUser && password === validPass) {
+    document.getElementById('login-section').style.display = 'none';
+    document.getElementById('store-section').style.display = 'block';
+    loadProducts();
+  } else {
+    errorMessage.textContent = 'Usuário ou senha inválidos.';
+  }
+});
+
+// Produtos da loja
+const products = [
+  {
+    id: 1,
+    name: 'Camisa Polo',
+    price: 79.90,
+    image: "https://www.pexels.com/pt-br/foto/homem-vestindo-uma-camisa-polo-azul-lacoste-e-relogio-analogico-prateado-1232459/"
+  },
+  {
+    id: 2,
+    name: 'Camisa Social',
+    price: 99.90,
+    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg"
+  },
+  {
+    id: 3,
+    name: 'Calça Alfaiataria',
+    price: 129.90,
+    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg"
+  },
+  {
+    id: 4,
+    name: 'Conjunto Calça e Camisa',
+    price: 199.90,
+    image: "https://images.pexels.com/photos/5934648/pexels-photo-5934648.jpeg"
+  }
 ];
-const loginSection = document.getElementById("login-section");
-const storeSection = document.getElementById("store-section");
-const loginButton = document.getElementById("login-button");
-const loginError = document.getElementById("login-error");
-const listaProdutos = document.getElementById("product-list");
-const carrinhoItems = document.getElementById("cart-items");
-const carrinhoTotal = document.getElementById("cart-total");
-const campoBusca = document.getElementById("search");
-let carrinho = [];
-loginButton.addEventListener("click", () => {
- const u = document.getElementById("username").value.trim();
- const p = document.getElementById("password").value.trim();
- if (u === "admin" && p === "123") {
-   loginSection.style.display = "none";
-   storeSection.style.display = "block";
-   mostrarProdutos(produtos);
- } else {
-   loginError.textContent = "Usuário ou senha incorretos.";
- }
-});
-function mostrarProdutos(lista) {
- listaProdutos.innerHTML = "";
- lista.forEach((produto, idx) => {
-   const div = document.createElement("div");
-   div.className = "product";
-   div.innerHTML = `
-<img src="${produto.imagem}" alt="${produto.nome}">
-<h3>${produto.nome}</h3>
-<p>R$ ${produto.preco.toFixed(2)}</p>
-<button onclick="adicionarAoCarrinho(${idx})">Adicionar ao carrinho</button>
-   `;
-   listaProdutos.appendChild(div);
- });
+
+function loadProducts() {
+  const productList = document.getElementById('product-list');
+  productList.innerHTML = '';
+
+  products.forEach(product => {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>R$ ${product.price.toFixed(2)}</p>
+      <button onclick="addToCart(${product.id})">Adicionar</button>
+    `;
+    productList.appendChild(div);
+  });
 }
-function adicionarAoCarrinho(index) {
- carrinho.push(produtos[index]);
- atualizarCarrinho();
+
+const cart = [];
+
+function addToCart(productId) {
+  const product = products.find(p => p.id === productId);
+  if (product) {
+    cart.push(product);
+    updateCart();
+  }
 }
-function removerDoCarrinho(index) {
- carrinho.splice(index, 1);
- atualizarCarrinho();
+
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  updateCart();
 }
-function atualizarCarrinho() {
- carrinhoItems.innerHTML = "";
- let total = 0;
- carrinho.forEach((item, i) => {
-   const div = document.createElement("div");
-   div.className = "cart-item";
-   div.innerHTML = `
-<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
-<button onclick="removerDoCarrinho(${i})">Remover</button>
-   `;
-   carrinhoItems.appendChild(div);
-   total += item.preco;
- });
- carrinhoTotal.textContent = Total: R$ ${total.toFixed(2)};
+
+function updateCart() {
+  const cartItems = document.getElementById('cart-items');
+  const cartTotal = document.getElementById('cart-total');
+  cartItems.innerHTML = '';
+
+  let total = 0;
+
+  cart.forEach((item, index) => {
+    const div = document.createElement('div');
+    div.className = 'cart-item';
+    div.innerHTML = `
+      <span>${item.name} - R$ ${item.price.toFixed(2)}</span>
+      <button onclick="removeFromCart(${index})">Remover</button>
+    `;
+    cartItems.appendChild(div);
+    total += item.price;
+  });
+
+  cartTotal.textContent = Total: R$ ${total.toFixed(2)};
 }
-campoBusca.addEventListener("input", () => {
- const termo = campoBusca.value.toLowerCase();
- const resultado = produtos.filter(p => p.nome.toLowerCase().includes(termo));
- mostrarProdutos(resultado);
-});
