@@ -1,128 +1,149 @@
 body {
- font-family: Arial, sans-serif;
- margin: 0;
- padding: 0;
- background-color: #e3f2fd; /* azul claro */
- color: #333;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e3f2fd;
+  color: #333;
 }
+
 #login-section {
- max-width: 400px;
- margin: 100px auto;
- padding: 30px;
- background: white;
- text-align: center;
- border-radius: 8px;
- box-shadow: 0 0 10px rgba(21,101,192,0.3); /* azul escuro com transparência */
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
 }
+
 #login-section input {
- display: block;
- width: 90%;
- margin: 10px auto;
- padding: 10px;
- border-radius: 5px;
- border: 1px solid #64b5f6; /* azul médio */
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #64b5f6;
 }
+
 #login-section button {
- background-color: #64b5f6; /* azul médio */
- color: white;
- padding: 10px 20px;
- border: none;
- border-radius: 5px;
- cursor: pointer;
+  background-color: #42a5f5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
 #login-section button:hover {
- background-color: #1976d2; /* azul escuro */
+  background-color: #1e88e5;
 }
+
 .error-message {
- color: red;
- margin-top: 10px;
+  color: red;
+  margin-top: 10px;
 }
+
 .container {
- max-width: 1200px;
- margin: auto;
- padding: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
 }
+
 header h1 {
- text-align: center;
- color: #1565c0; /* azul escuro */
- margin-bottom: 20px;
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 20px;
 }
+
 .search-bar {
- text-align: center;
- margin-bottom: 20px;
+  text-align: center;
+  margin-bottom: 20px;
 }
+
 .search-bar input {
- padding: 10px;
- width: 60%;
- max-width: 300px;
- border: 1px solid #64b5f6; /* azul médio */
- border-radius: 5px;
+  padding: 10px;
+  width: 60%;
+  max-width: 300px;
+  border: 1px solid #64b5f6;
+  border-radius: 5px;
 }
+
 .products {
- display: flex;
- flex-wrap: wrap;
- gap: 20px;
- justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
 }
+
 .product {
- background-color: white;
- border: 2px solid #90caf9; /* azul claro */
- border-radius: 10px;
- width: 250px;
- padding: 15px;
- box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
- text-align: center;
+  background-color: white;
+  border: 2px solid #90caf9;
+  border-radius: 10px;
+  width: 250px;
+  padding: 15px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
+
 .product img {
- width: 100%;
- height: 200px;
- object-fit: cover;
- border-radius: 8px;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
 }
+
 .product h3 {
- color: #1565c0; /* azul escuro */
- margin: 10px 0;
+  color: #1565c0;
+  margin: 10px 0;
 }
+
 .product p {
- margin: 5px 0;
- font-weight: bold;
+  margin: 5px 0;
+  font-weight: bold;
 }
+
 .product button {
- background-color: #64b5f6; /* azul médio */
- color: white;
- border: none;
- padding: 10px;
- border-radius: 5px;
- cursor: pointer;
+  background-color: #42a5f5;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
 }
+
 .product button:hover {
- background-color: #1976d2; /* azul escuro */
+  background-color: #1e88e5;
 }
+
 #cart {
- background-color: white;
- margin: 40px auto;
- padding: 20px;
- max-width: 500px;
- border-radius: 8px;
- border: 1px solid #90caf9; /* azul claro */
+  background-color: white;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 500px;
+  border-radius: 8px;
+  border: 1px solid #90caf9;
 }
+
 #cart h2 {
- color: #1565c0; /* azul escuro */
- text-align: center;
+  color: #1565c0;
+  text-align: center;
 }
+
 .cart-item {
- display: flex;
- justify-content: space-between;
- margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
+
 .cart-item button {
- background-color: #e53935;
- color: white;
- border: none;
- padding: 5px 10px;
- border-radius: 4px;
- cursor: pointer;
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
 }
+
 .cart-item button:hover {
- background-color: #c62828;
+  background-color: #c62828;
 }
