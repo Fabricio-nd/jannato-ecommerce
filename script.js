@@ -1,149 +1,92 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #e3f2fd;
-  color: #333;
+const users = [
+  { username: "admin", password: "1234" },
+  { username: "Jannato", password: "2025" }
+];
+
+document.getElementById("login-button").addEventListener("click", () => {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorMessage = document.getElementById("login-error");
+
+  const validUser = users.find(user => user.username === username && user.password === password);
+
+  if (validUser) {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("store-section").style.display = "block";
+    renderProducts();
+  } else {
+    errorMessage.textContent = "Usuário ou senha incorretos.";
+  }
+});
+
+const products = [
+  {
+    name: "Camisa Polo",
+    price: 89.99,
+    image: "https://images.pexels.com/photos/3228848/pexels-photo-3228848.jpeg"
+  },
+  {
+    name: "Camisa Social",
+    price: 129.90,
+    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg”
+  },
+  {
+    name: "Calça Alfaiataria",
+    price: 159.99,
+    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg”
+  },
+  {
+    name: "Conjunto Calça e Camisa",
+    price: 219.90,
+    image: "https://images.pexels.com/photos/5934648/pexels-photo-5934648.jpeg"
+  }
+];
+
+function renderProducts() {
+  const productList = document.getElementById("product-list");
+  productList.innerHTML = "";
+
+  products.forEach(product => {
+    const div = document.createElement("div");
+    div.className = "product";
+    div.innerHTML = `
+      <img src="${product.image}" alt="${product.name}">
+      <h3>${product.name}</h3>
+      <p>R$ ${product.price.toFixed(2)}</p>
+      <button onclick="addToCart('${product.name}', ${product.price})">Adicionar</button>
+    `;
+    productList.appendChild(div);
+  });
 }
 
-#login-section {
-  max-width: 400px;
-  margin: 100px auto;
-  padding: 30px;
-  background: white;
-  text-align: center;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
+let cart = [];
+
+function addToCart(name, price) {
+  cart.push({ name, price });
+  renderCart();
 }
 
-#login-section input {
-  display: block;
-  width: 90%;
-  margin: 10px auto;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid #64b5f6;
+function renderCart() {
+  const cartItems = document.getElementById("cart-items");
+  const cartTotal = document.getElementById("cart-total");
+  cartItems.innerHTML = "";
+
+  let total = 0;
+  cart.forEach((item, index) => {
+    total += item.price;
+    const div = document.createElement("div");
+    div.className = "cart-item";
+    div.innerHTML = `
+      <span>${item.name} - R$ ${item.price.toFixed(2)}</span>
+      <button onclick="removeFromCart(${index})">Remover</button>
+    `;
+    cartItems.appendChild(div);
+  });
+
+  cartTotal.textContent = Total: R$ ${total.toFixed(2)};
 }
 
-#login-section button {
-  background-color: #42a5f5;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-#login-section button:hover {
-  background-color: #1e88e5;
-}
-
-.error-message {
-  color: red;
-  margin-top: 10px;
-}
-
-.container {
-  max-width: 1200px;
-  margin: auto;
-  padding: 20px;
-}
-
-header h1 {
-  text-align: center;
-  color: #1565c0;
-  margin-bottom: 20px;
-}
-
-.search-bar {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.search-bar input {
-  padding: 10px;
-  width: 60%;
-  max-width: 300px;
-  border: 1px solid #64b5f6;
-  border-radius: 5px;
-}
-
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;
-}
-
-.product {
-  background-color: white;
-  border: 2px solid #90caf9;
-  border-radius: 10px;
-  width: 250px;
-  padding: 15px;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.product img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-radius: 8px;
-}
-
-.product h3 {
-  color: #1565c0;
-  margin: 10px 0;
-}
-
-.product p {
-  margin: 5px 0;
-  font-weight: bold;
-}
-
-.product button {
-  background-color: #42a5f5;
-  color: white;
-  border: none;
-  padding: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.product button:hover {
-  background-color: #1e88e5;
-}
-
-#cart {
-  background-color: white;
-  margin: 40px auto;
-  padding: 20px;
-  max-width: 500px;
-  border-radius: 8px;
-  border: 1px solid #90caf9;
-}
-
-#cart h2 {
-  color: #1565c0;
-  text-align: center;
-}
-
-.cart-item {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 10px;
-}
-
-.cart-item button {
-  background-color: #e53935;
-  color: white;
-  border: none;
-  padding: 5px 10px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.cart-item button:hover {
-  background-color: #c62828;
+function removeFromCart(index) {
+  cart.splice(index, 1);
+  renderCart();
 }
