@@ -3,8 +3,8 @@ document.getElementById('login-button').addEventListener('click', function () {
   const password = document.getElementById('password').value.trim();
   const errorMessage = document.getElementById('login-error');
 
-  const validUser = 'admin';
-  const validPass = '1234';
+  const validUser = "admin";
+  const validPass = "1234";
 
   if (username === validUser && password === validPass) {
     document.getElementById('login-section').style.display = 'none';
