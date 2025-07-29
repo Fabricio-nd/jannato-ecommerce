@@ -1,97 +1,149 @@
-document.getElementById('login-button').addEventListener('click', function () {
-  const username = document.getElementById('username').value.trim();
-  const password = document.getElementById('password').value.trim();
-  const errorMessage = document.getElementById('login-error');
-
-  const validUser = 'admin';
-  const validPass = '1234';
-
-  if (username === validUser && password === validPass) {
-    document.getElementById('login-section').style.display = 'none';
-    document.getElementById('store-section').style.display = 'block';
-    loadProducts();
-  } else {
-    errorMessage.textContent = 'Usuário ou senha inválidos.';
-  }
-});
-
-// Produtos da loja
-const products = [
-  {
-    id: 1,
-    name: 'Camisa Polo',
-    price: 79.90,
-    image: "https://www.pexels.com/pt-br/foto/homem-vestindo-uma-camisa-polo-azul-lacoste-e-relogio-analogico-prateado-1232459/"
-  },
-  {
-    id: 2,
-    name: 'Camisa Social',
-    price: 99.90,
-    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg"
-  },
-  {
-    id: 3,
-    name: 'Calça Alfaiataria',
-    price: 129.90,
-    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg"
-  },
-  {
-    id: 4,
-    name: 'Conjunto Calça e Camisa',
-    price: 199.90,
-    image: "https://images.pexels.com/photos/5934648/pexels-photo-5934648.jpeg"
-  }
-];
-
-function loadProducts() {
-  const productList = document.getElementById('product-list');
-  productList.innerHTML = '';
-
-  products.forEach(product => {
-    const div = document.createElement('div');
-    div.className = 'product';
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>R$ ${product.price.toFixed(2)}</p>
-      <button onclick="addToCart(${product.id})">Adicionar</button>
-    `;
-    productList.appendChild(div);
-  });
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #e3f2fd;
+  color: #333;
 }
 
-const cart = [];
-
-function addToCart(productId) {
-  const product = products.find(p => p.id === productId);
-  if (product) {
-    cart.push(product);
-    updateCart();
-  }
+#login-section {
+  max-width: 400px;
+  margin: 100px auto;
+  padding: 30px;
+  background: white;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(30, 136, 229, 0.3);
 }
 
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  updateCart();
+#login-section input {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #64b5f6;
 }
 
-function updateCart() {
-  const cartItems = document.getElementById('cart-items');
-  const cartTotal = document.getElementById('cart-total');
-  cartItems.innerHTML = '';
+#login-section button {
+  background-color: #42a5f5;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
-  let total = 0;
+#login-section button:hover {
+  background-color: #1e88e5;
+}
 
-  cart.forEach((item, index) => {
-    const div = document.createElement('div');
-    div.className = 'cart-item';
-    div.innerHTML = `
-      <span>${item.name} - R$ ${item.price.toFixed(2)}</span>
-      <button onclick="removeFromCart(${index})">Remover</button>
-    `;
-    cartItems.appendChild(div);
-    total += item.price;
-  });
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
 
-  cartTotal.textContent = Total: R$ ${total.toFixed(2)};
+.container {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+header h1 {
+  text-align: center;
+  color: #1565c0;
+  margin-bottom: 20px;
+}
+
+.search-bar {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.search-bar input {
+  padding: 10px;
+  width: 60%;
+  max-width: 300px;
+  border: 1px solid #64b5f6;
+  border-radius: 5px;
+}
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.product {
+  background-color: white;
+  border: 2px solid #90caf9;
+  border-radius: 10px;
+  width: 250px;
+  padding: 15px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.product img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.product h3 {
+  color: #1565c0;
+  margin: 10px 0;
+}
+
+.product p {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.product button {
+  background-color: #42a5f5;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product button:hover {
+  background-color: #1e88e5;
+}
+
+#cart {
+  background-color: white;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 500px;
+  border-radius: 8px;
+  border: 1px solid #90caf9;
+}
+
+#cart h2 {
+  color: #1565c0;
+  text-align: center;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.cart-item button {
+  background-color: #e53935;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.cart-item button:hover {
+  background-color: #c62828;
 }
