@@ -28,12 +28,12 @@ const products = [
   {
     name: "Camisa Social",
     price: 129.90,
-    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg”
+    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg"
   },
   {
     name: "Calça Alfaiataria",
     price: 159.99,
-    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg”
+    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg"
   },
   {
     name: "Conjunto Calça e Camisa",
@@ -83,7 +83,7 @@ function renderCart() {
     cartItems.appendChild(div);
   });
 
-  cartTotal.textContent = Total: R$ ${total.toFixed(2)};
+  cartTotal.textContent = `Total: R$ ${total.toFixed(2)}`;
 }
 
 function removeFromCart(index) {
