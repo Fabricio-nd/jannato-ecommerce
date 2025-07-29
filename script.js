@@ -1,92 +1,84 @@
-const users = [
-  { username: "admin", password: "1234" },
-  { username: "Jannato", password: "2025" }
+const produtos = [
+ {
+   nome: "camisa polo",
+   preco: 79.90,
+   imagem: "https://images.pexels.com/photos/3228848/pexels-photo-3228848.jpeg"
+ },
+ {
+   nome: "camisa social",
+   preco: 99.90,
+   imagem: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg"
+ },
+ {
+   nome: "calça alfaiataria",
+   preco: 129.90,
+   imagem: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg"
+ },
+ {
+   nome: "conjunto calça e camisa",
+   preco: 149.90,
+   imagem: "https://images.pexels.com/photos/5934648/pexels-photo-5934648.jpeg"
+ }
 ];
-
-document.getElementById("login-button").addEventListener("click", () => {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const errorMessage = document.getElementById("login-error");
-
-  const validUser = users.find(user => user.username === username && user.password === password);
-
-  if (validUser) {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("store-section").style.display = "block";
-    renderProducts();
-  } else {
-    errorMessage.textContent = "Usuário ou senha incorretos.";
-  }
+const loginSection = document.getElementById("login-section");
+const storeSection = document.getElementById("store-section");
+const loginButton = document.getElementById("login-button");
+const loginError = document.getElementById("login-error");
+const listaProdutos = document.getElementById("product-list");
+const carrinhoItems = document.getElementById("cart-items");
+const carrinhoTotal = document.getElementById("cart-total");
+const campoBusca = document.getElementById("search");
+let carrinho = [];
+loginButton.addEventListener("click", () => {
+ const u = document.getElementById("username").value.trim();
+ const p = document.getElementById("password").value.trim();
+ if (u === "admin" && p === "123") {
+   loginSection.style.display = "none";
+   storeSection.style.display = "block";
+   mostrarProdutos(produtos);
+ } else {
+   loginError.textContent = "Usuário ou senha incorretos.";
+ }
 });
-
-const products = [
-  {
-    name: "Camisa Polo",
-    price: 89.99,
-    image: "https://images.pexels.com/photos/3228848/pexels-photo-3228848.jpeg"
-  },
-  {
-    name: "Camisa Social",
-    price: 129.90,
-    image: "https://images.pexels.com/photos/2013811/pexels-photo-2013811.jpeg”
-  },
-  {
-    name: "Calça Alfaiataria",
-    price: 159.99,
-    image: "https://images.pexels.com/photos/5103042/pexels-photo-5103042.jpeg”
-  },
-  {
-    name: "Conjunto Calça e Camisa",
-    price: 219.90,
-    image: "https://images.pexels.com/photos/5934648/pexels-photo-5934648.jpeg"
-  }
-];
-
-function renderProducts() {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
-
-  products.forEach(product => {
-    const div = document.createElement("div");
-    div.className = "product";
-    div.innerHTML = `
-      <img src="${product.image}" alt="${product.name}">
-      <h3>${product.name}</h3>
-      <p>R$ ${product.price.toFixed(2)}</p>
-      <button onclick="addToCart('${product.name}', ${product.price})">Adicionar</button>
-    `;
-    productList.appendChild(div);
-  });
+function mostrarProdutos(lista) {
+ listaProdutos.innerHTML = "";
+ lista.forEach((produto, idx) => {
+   const div = document.createElement("div");
+   div.className = "product";
+   div.innerHTML = `
+<img src="${produto.imagem}" alt="${produto.nome}">
+<h3>${produto.nome}</h3>
+<p>R$ ${produto.preco.toFixed(2)}</p>
+<button onclick="adicionarAoCarrinho(${idx})">Adicionar ao carrinho</button>
+   `;
+   listaProdutos.appendChild(div);
+ });
 }
-
-let cart = [];
-
-function addToCart(name, price) {
-  cart.push({ name, price });
-  renderCart();
+function adicionarAoCarrinho(index) {
+ carrinho.push(produtos[index]);
+ atualizarCarrinho();
 }
-
-function renderCart() {
-  const cartItems = document.getElementById("cart-items");
-  const cartTotal = document.getElementById("cart-total");
-  cartItems.innerHTML = "";
-
-  let total = 0;
-  cart.forEach((item, index) => {
-    total += item.price;
-    const div = document.createElement("div");
-    div.className = "cart-item";
-    div.innerHTML = `
-      <span>${item.name} - R$ ${item.price.toFixed(2)}</span>
-      <button onclick="removeFromCart(${index})">Remover</button>
-    `;
-    cartItems.appendChild(div);
-  });
-
-  cartTotal.textContent = Total: R$ ${total.toFixed(2)};
+function removerDoCarrinho(index) {
+ carrinho.splice(index, 1);
+ atualizarCarrinho();
 }
-
-function removeFromCart(index) {
-  cart.splice(index, 1);
-  renderCart();
+function atualizarCarrinho() {
+ carrinhoItems.innerHTML = "";
+ let total = 0;
+ carrinho.forEach((item, i) => {
+   const div = document.createElement("div");
+   div.className = "cart-item";
+   div.innerHTML = `
+<span>${item.nome} - R$ ${item.preco.toFixed(2)}</span>
+<button onclick="removerDoCarrinho(${i})">Remover</button>
+   `;
+   carrinhoItems.appendChild(div);
+   total += item.preco;
+ });
+ carrinhoTotal.textContent = Total: R$ ${total.toFixed(2)};
 }
+campoBusca.addEventListener("input", () => {
+ const termo = campoBusca.value.toLowerCase();
+ const resultado = produtos.filter(p => p.nome.toLowerCase().includes(termo));
+ mostrarProdutos(resultado);
+});
