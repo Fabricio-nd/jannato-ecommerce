@@ -13,7 +13,7 @@ document.getElementById("login-button").addEventListener("click", () => {
   if (validUser) {
     document.getElementById("login-section").style.display = "none";
     document.getElementById("store-section").style.display = "block";
-    renderProducts();
+    renderProducts(); // renderiza todos os produtos no início
   } else {
     errorMessage.textContent = "Usuário ou senha incorretos.";
   }
@@ -42,11 +42,16 @@ const products = [
   }
 ];
 
-function renderProducts() {
+function renderProducts(filteredProducts = products) {
   const productList = document.getElementById("product-list");
   productList.innerHTML = "";
 
-  products.forEach(product => {
+  if (filteredProducts.length === 0) {
+    productList.innerHTML = "<p>Nenhum produto encontrado.</p>";
+    return;
+  }
+
+  filteredProducts.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
@@ -90,3 +95,13 @@ function removeFromCart(index) {
   cart.splice(index, 1);
   renderCart();
 }
+
+// 🔍 Lógica da busca
+document.getElementById("search").addEventListener("input", (e) => {
+  const searchTerm = e.target.value.toLowerCase();
+  const filtered = products.filter(product =>
+    product.name.toLowerCase().includes(searchTerm)
+  );
+  renderProducts(filtered);
+});
+
