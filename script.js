@@ -3,22 +3,6 @@ const users = [
   { username: "Jannato", password: "2025" }
 ];
 
-document.getElementById("login-button").addEventListener("click", () => {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const errorMessage = document.getElementById("login-error");
-
-  const validUser = users.find(user => user.username === username && user.password === password);
-
-  if (validUser) {
-    document.getElementById("login-section").style.display = "none";
-    document.getElementById("store-section").style.display = "block";
-    renderProducts(); // renderiza todos os produtos no início
-  } else {
-    errorMessage.textContent = "Usuário ou senha incorretos.";
-  }
-});
-
 const products = [
   {
     name: "Camisa Polo",
@@ -42,16 +26,34 @@ const products = [
   }
 ];
 
-function renderProducts(filteredProducts = products) {
-  const productList = document.getElementById("product-list");
-  productList.innerHTML = "";
+let cart = [];
 
-  if (filteredProducts.length === 0) {
-    productList.innerHTML = "<p>Nenhum produto encontrado.</p>";
+document.getElementById("login-button").addEventListener("click", () => {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const errorMessage = document.getElementById("login-error");
+
+  const validUser = users.find(user => user.username === username && user.password === password);
+
+  if (validUser) {
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("store-section").style.display = "block";
+    renderProducts(products);
+  } else {
+    errorMessage.textContent = "Usuário ou senha incorretos.";
+  }
+});
+
+function renderProducts(productList) {
+  const productContainer = document.getElementById("product-list");
+  productContainer.innerHTML = "";
+
+  if (productList.length === 0) {
+    productContainer.innerHTML = "<p>Nenhum produto encontrado.</p>";
     return;
   }
 
-  filteredProducts.forEach(product => {
+  productList.forEach(product => {
     const div = document.createElement("div");
     div.className = "product";
     div.innerHTML = `
@@ -60,11 +62,9 @@ function renderProducts(filteredProducts = products) {
       <p>R$ ${product.price.toFixed(2)}</p>
       <button onclick="addToCart('${product.name}', ${product.price})">Adicionar</button>
     `;
-    productList.appendChild(div);
+    productContainer.appendChild(div);
   });
 }
-
-let cart = [];
 
 function addToCart(name, price) {
   cart.push({ name, price });
@@ -96,11 +96,11 @@ function removeFromCart(index) {
   renderCart();
 }
 
-// 🔍 Lógica da busca
-document.getElementById("search").addEventListener("input", (e) => {
-  const searchTerm = e.target.value.toLowerCase();
-  const filtered = products.filter(product =>
-    product.name.toLowerCase().includes(searchTerm)
+// 🔍 Busca ao digitar
+document.getElementById("search").addEventListener("input", (event) => {
+  const searchTerm = event.target.value.toLowerCase();
+  const filtered = products.filter(p =>
+    p.name.toLowerCase().includes(searchTerm)
   );
   renderProducts(filtered);
 });
