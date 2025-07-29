@@ -4,7 +4,7 @@ document.getElementById('login-button').addEventListener('click', function () {
   const errorMessage = document.getElementById('login-error');
 
   const validUser = 'admin';
-  const validPass = '123';
+  const validPass = '1234';
 
   if (username === validUser && password === validPass) {
     document.getElementById('login-section').style.display = 'none';
